@@ -1,47 +1,35 @@
-import { useEffect, useState } from 'react';
-import { generateClient } from 'aws-amplify/data';
+import { useState } from 'react';
 import './App.css';
 
 /**
- * The Data client is generated from your backend schema (amplify/data/resource).
- * It exposes typed CRUD + realtime methods under client.models.<ModelName>.
+ * A minimal, self-contained starter component.
+ *
+ * This is a plain client-side React app — no backend wired in. The "todos"
+ * list lives only in component state, so it resets on refresh. The Amplify
+ * backend (under amplify/) can still be run locally via `npx ampx sandbox`
+ * for learning; the hosted site stays static.
  */
-const client = generateClient();
-
 function App() {
   const [todos, setTodos] = useState([]);
   const [draft, setDraft] = useState('');
 
-  // observeQuery() opens a live subscription: the list re-renders automatically
-  // whenever a Todo is created, updated, or deleted — even from another tab.
-  useEffect(() => {
-    const sub = client.models.Todo.observeQuery().subscribe({
-      next: ({ items }) => setTodos([...items]),
-    });
-    return () => sub.unsubscribe();
-  }, []);
-
-  async function addTodo() {
+  function addTodo() {
     const value = draft.trim();
     if (!value) return;
-    await client.models.Todo.create({ content: value, done: false });
+    setTodos((prev) => [...prev, value]);
     setDraft('');
   }
 
-  async function toggleTodo(todo) {
-    await client.models.Todo.update({ id: todo.id, done: !todo.done });
-  }
-
-  async function removeTodo(id) {
-    await client.models.Todo.delete({ id });
+  function removeTodo(index) {
+    setTodos((prev) => prev.filter((_, i) => i !== index));
   }
 
   return (
     <main className="app">
       <h1>Amplify Learning App</h1>
       <p className="subtitle">
-        Todos are stored in DynamoDB through an AppSync GraphQL API. The list
-        updates live via a subscription.
+        A basic React + Vite frontend. Local state for now — wire it to Amplify
+        Data next to make it persist.
       </p>
 
       <div className="todo-input">
@@ -61,20 +49,13 @@ function App() {
         <p className="empty">No todos yet. Add one above.</p>
       ) : (
         <ul className="todo-list">
-          {todos.map((todo) => (
-            <li key={todo.id}>
-              <label className="todo-label">
-                <input
-                  type="checkbox"
-                  checked={!!todo.done}
-                  onChange={() => toggleTodo(todo)}
-                />
-                <span className={todo.done ? 'done' : ''}>{todo.content}</span>
-              </label>
+          {todos.map((todo, index) => (
+            <li key={index}>
+              <span>{todo}</span>
               <button
                 className="remove"
-                aria-label={`Remove ${todo.content}`}
-                onClick={() => removeTodo(todo.id)}
+                aria-label={`Remove ${todo}`}
+                onClick={() => removeTodo(index)}
               >
                 ✕
               </button>
