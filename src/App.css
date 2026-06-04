@@ -83,3 +83,21 @@ button.remove {
 button.remove:hover {
   background: #fde8ea;
 }
+
+.todo-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+.todo-label input[type='checkbox'] {
+  width: 1.1rem;
+  height: 1.1rem;
+  cursor: pointer;
+}
+
+.todo-label .done {
+  text-decoration: line-through;
+  color: #9a9ab0;
+}
