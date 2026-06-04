@@ -1,0 +1,85 @@
+.app {
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+h1 {
+  margin-bottom: 0.25rem;
+  font-size: 2rem;
+}
+
+.subtitle {
+  margin-top: 0;
+  color: #5a5a72;
+  font-size: 0.95rem;
+}
+
+.todo-input {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.todo-input input {
+  flex: 1;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #cdd0d6;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.todo-input input:focus {
+  outline: 2px solid #7b61ff;
+  border-color: transparent;
+}
+
+button {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #7b61ff;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #6a50e8;
+}
+
+.empty {
+  color: #8a8aa0;
+  font-style: italic;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.todo-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 1px solid #e3e4e9;
+  border-radius: 8px;
+}
+
+button.remove {
+  background: transparent;
+  color: #b00020;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+button.remove:hover {
+  background: #fde8ea;
+}
