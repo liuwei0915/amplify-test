@@ -6,7 +6,10 @@ frontend:
         # Vite 8 requires Node >= 22.12. Ensure the build uses Node 22.
         - nvm install 22
         - nvm use 22
-        - npm ci
+        # Use "npm install" rather than "npm ci": it tolerates cross-platform
+        # optional-dependency differences (lock generated on macOS arm64, build
+        # runs on Linux x64) and keeps the lock file in sync.
+        - npm install
     build:
       commands:
         - npm run build
